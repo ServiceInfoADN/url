@@ -1,6 +1,7 @@
 <?php
-namespace Wa72\Url;
+namespace Adn\Url;
 
+use InvalidArgumentException;
 use Psr\Http\Message\UriInterface;
 
 class Url
@@ -10,18 +11,18 @@ class Url
     const WRITE_FLAG_OMIT_SCHEME = 1;
     const WRITE_FLAG_OMIT_HOST = 2;
 
-    protected $original_url;
+    protected string $original_url;
 
-    protected $scheme;
-    protected $user;
-    protected $pass;
-    protected $host;
-    protected $port;
-    protected $path;
-    protected $query;
+    protected string $scheme;
+    protected string $user;
+    protected string $pass;
+    protected string $host;
+    protected ?int $port;
+    protected string $path;
+    protected string $query;
     protected $fragment;
 
-    protected $query_array = array();
+    protected array $query_array = array();
 
     public function __construct($url)
     {
@@ -72,7 +73,7 @@ class Url
      *
      * @return bool
      */
-    public function is_url()
+    public function is_url(): bool
     {
         return ($this->scheme == ''
             || $this->scheme == 'http'
@@ -86,32 +87,32 @@ class Url
     /**
      * @return bool
      */
-    public function is_local()
+    public function is_local(): bool
     {
-        return (substr($this->original_url, 0, 1) == '#');
+        return (str_starts_with($this->original_url, '#'));
     }
 
 
     /**
      * @return bool
      */
-    public function is_relative()
+    public function is_relative(): bool
     {
-        return ($this->scheme == '' && $this->host == '' && substr($this->path, 0, 1) != '/');
+        return ($this->scheme == '' && $this->host == '' && !str_starts_with($this->path, '/'));
     }
 
     /**
      * @return bool
      */
-    public function is_host_relative()
+    public function is_host_relative(): bool
     {
-        return ($this->scheme == '' && $this->host == '' && substr($this->path, 0, 1) == '/');
+        return ($this->scheme == '' && $this->host == '' && str_starts_with($this->path, '/'));
     }
 
     /**
      * @return bool
      */
-    public function is_absolute()
+    public function is_absolute(): bool
     {
         return ($this->scheme != '');
     }
@@ -119,9 +120,9 @@ class Url
     /**
      * @return bool
      */
-    public function is_protocol_relative()
+    public function is_protocol_relative(): bool
     {
-        return (substr($this->original_url, 0, 2) == '//');
+        return (str_starts_with($this->original_url, '//'));
     }
 
     /**
@@ -144,7 +145,7 @@ class Url
      * @param int $write_flags A combination of the WRITE_FLAG_* constants
      * @return string
      */
-    public function write($write_flags = self::WRITE_FLAG_AS_IS)
+    public function write(int $write_flags = self::WRITE_FLAG_AS_IS): string
     {
         $show_scheme = $this->scheme && (!($write_flags & self::WRITE_FLAG_OMIT_SCHEME));
         $show_authority = $this->host && (!($write_flags & self::WRITE_FLAG_OMIT_HOST));
@@ -163,7 +164,7 @@ class Url
      * @param string $fragment
      * @return Url $this
      */
-    public function setFragment($fragment)
+    public function setFragment(string $fragment)
     {
         $this->fragment = $fragment;
         return $this;
@@ -172,7 +173,7 @@ class Url
     /**
      * @return string
      */
-    public function getFragment()
+    public function getFragment(): string
     {
         return $this->fragment;
     }
@@ -181,7 +182,7 @@ class Url
      * @param string $host
      * @return Url $this
      */
-    public function setHost($host)
+    public function setHost(string $host)
     {
         $this->host = strtolower($host);
         return $this;
@@ -190,16 +191,16 @@ class Url
     /**
      * @return string
      */
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
 
     /**
-     * @param $pass
+     * @param string|null $pass
      * @return Url $this
      */
-    public function setPass($pass)
+    public function setPass(?string $pass)
     {
         $this->pass = $pass;
         return $this;
@@ -208,7 +209,7 @@ class Url
     /**
      * @return string
      */
-    public function getPass()
+    public function getPass(): string
     {
         return $this->pass;
     }
@@ -234,7 +235,7 @@ class Url
     /**
      * @param int|null $port
      */
-    public function setPort($port)
+    public function setPort(?int $port)
     {
         if ($port) {
             $this->port = intval($port);
@@ -258,7 +259,7 @@ class Url
      *
      * @return null|int The URI port.
      */
-    public function getPort()
+    public function getPort(): ?int
     {
         $port = $this->port;
         $default_ports = [
@@ -280,7 +281,7 @@ class Url
      * @param string $query The query string, must be already url encoded!!
      * @return Url $this
      */
-    public function setQuery($query)
+    public function setQuery(string $query)
     {
         $this->query = $query;
         parse_str($this->query, $this->query_array);
@@ -290,7 +291,7 @@ class Url
     /**
      * @return string The url encoded query string
      */
-    public function getQuery()
+    public function getQuery(): string
     {
         return $this->query;
     }
@@ -299,7 +300,7 @@ class Url
      * @param string $scheme
      * @return Url $this
      */
-    public function setScheme($scheme)
+    public function setScheme(string $scheme)
     {
         $this->scheme = strtolower($scheme);
         return $this;
@@ -308,7 +309,7 @@ class Url
     /**
      * @return string
      */
-    public function getScheme()
+    public function getScheme(): string
     {
         return $this->scheme;
     }
@@ -317,7 +318,7 @@ class Url
      * @param string $user
      * @return Url $this
      */
-    public function setUser($user)
+    public function setUser(string $user)
     {
         $this->user = $user;
         return $this;
@@ -326,7 +327,7 @@ class Url
     /**
      * @return string
      */
-    public function getUser()
+    public function getUser(): string
     {
         return $this->user;
     }
@@ -336,7 +337,7 @@ class Url
      *
      * @return string
      */
-    public function getFilename()
+    public function getFilename(): string
     {
         return static::filename($this->path);
     }
@@ -346,7 +347,7 @@ class Url
      *
      * @return string
      */
-    public function getDirname()
+    public function getDirname(): string
     {
         return static::dirname($this->path);
     }
@@ -363,7 +364,7 @@ class Url
      * @param string $name
      * @return bool
      */
-    public function hasQueryParameter($name)
+    public function hasQueryParameter(string $name): bool
     {
         return isset($this->query_array[$name]);
     }
@@ -372,10 +373,9 @@ class Url
      * @param string $name
      * @return string|null
      */
-    public function getQueryParameter($name)
+    public function getQueryParameter(string $name): ?string
     {
-        if (isset($this->query_array[$name])) return $this->query_array[$name];
-        else return null;
+        return $this->query_array[$name] ?? null;
     }
 
     /**
@@ -383,7 +383,7 @@ class Url
      * @param mixed $value
      * @return Url $this
      */
-    public function setQueryParameter($name, $value)
+    public function setQueryParameter(string $name, mixed $value)
     {
         $this->query_array[$name] = $value;
         $this->query = http_build_query($this->query_array);
@@ -406,7 +406,7 @@ class Url
      *
      * @return array
      */
-    public function getQueryArray()
+    public function getQueryArray(): array
     {
         return $this->query_array;
     }
@@ -437,7 +437,7 @@ class Url
      * @param Url|string $another_url
      * @return bool
      */
-    public function equals($another_url)
+    public function equals($another_url): bool
     {
         if (!($another_url instanceof Url)) $another_url = new static($another_url);
         return $this->getScheme() == $another_url->getScheme()
@@ -455,7 +455,7 @@ class Url
      * @param string $another_path
      * @return bool
      */
-    public function equalsPath($another_path)
+    public function equalsPath(string $another_path): bool
     {
         return $this->getPath() == static::normalizePath($another_path);
     }
@@ -466,7 +466,7 @@ class Url
      * @param string $another_path
      * @return bool True if $this->path is a subpath of $another_path
      */
-    public function isInPath($another_path)
+    public function isInPath(string $another_path): bool
     {
         $p = static::normalizePath($another_path);
         if ($p == $this->path) return true;
@@ -478,7 +478,7 @@ class Url
      * @param string|array|Url $another_query
      * @return bool
      */
-    public function equalsQuery($another_query)
+    public function equalsQuery($another_query): bool
     {
         $another_query_array = array();
         if (is_array($another_query)) $another_query_array = $another_query;
@@ -492,9 +492,8 @@ class Url
      * @param string $another_hostname
      * @return bool
      */
-    public function equalsHost($another_hostname)
+    public function equalsHost(string $another_hostname): bool
     {
-        // TODO: normalize IDN
         return $this->getHost() == strtolower($another_hostname);
     }
 
@@ -515,7 +514,7 @@ class Url
      *
      * @return string The URI user information, in "username[:password]" format.
      */
-    public function getUserInfo()
+    public function getUserInfo(): string
     {
         if ($this->user) {
             return $this->user . ($this->pass ? ':' . $this->pass : '');
@@ -542,7 +541,7 @@ class Url
      * @see https://tools.ietf.org/html/rfc3986#section-3.2
      * @return string The URI authority, in "[user-info@]host[:port]" format.
      */
-    public function getAuthority()
+    public function getAuthority(): string
     {
         $userinfo = $this->getUserInfo();
         $port = $this->getPort();
@@ -562,9 +561,9 @@ class Url
      *
      * @param string $scheme The scheme to use with the new instance.
      * @return static A new instance with the specified scheme.
-     * @throws \InvalidArgumentException for invalid or unsupported schemes.
+     * @throws InvalidArgumentException for invalid or unsupported schemes.
      */
-    public function withScheme($scheme)
+    public function withScheme(string $scheme): string
     {
         $new_uri = clone $this;
         $new_uri->setScheme($scheme);
@@ -585,7 +584,7 @@ class Url
      * @param null|string $password The password associated with $user.
      * @return static A new instance with the specified user information.
      */
-    public function withUserInfo($user, $password = null)
+    public function withUserInfo(string $user, ?string $password = null)
     {
         $new_uri = clone $this;
         $new_uri->setUser($user);
@@ -603,9 +602,9 @@ class Url
      *
      * @param string $host The hostname to use with the new instance.
      * @return static A new instance with the specified host.
-     * @throws \InvalidArgumentException for invalid hostnames.
+     * @throws InvalidArgumentException for invalid hostnames.
      */
-    public function withHost($host)
+    public function withHost(string $host)
     {
         $new_uri = clone $this;
         $new_uri->setHost($host);
@@ -627,9 +626,9 @@ class Url
      * @param null|int $port The port to use with the new instance; a null value
      *     removes the port information.
      * @return static A new instance with the specified port.
-     * @throws \InvalidArgumentException for invalid ports.
+     * @throws InvalidArgumentException for invalid ports.
      */
-    public function withPort($port)
+    public function withPort(?int $port)
     {
         $new_uri = clone $this;
         $new_uri->setPort($port);
@@ -656,9 +655,9 @@ class Url
      *
      * @param string $path The path to use with the new instance.
      * @return static A new instance with the specified path.
-     * @throws \InvalidArgumentException for invalid paths.
+     * @throws InvalidArgumentException for invalid paths.
      */
-    public function withPath($path)
+    public function withPath(string $path)
     {
         $new_uri = clone $this;
         $new_uri->setPath($path);
@@ -678,9 +677,9 @@ class Url
      *
      * @param string $query The query string to use with the new instance.
      * @return static A new instance with the specified query string.
-     * @throws \InvalidArgumentException for invalid query strings.
+     * @throws InvalidArgumentException for invalid query strings.
      */
-    public function withQuery($query)
+    public function withQuery(string $query)
     {
         $new_uri = clone $this;
         $new_uri->setQuery($query);
@@ -701,7 +700,7 @@ class Url
      * @param string $fragment The fragment to use with the new instance.
      * @return static A new instance with the specified fragment.
      */
-    public function withFragment($fragment)
+    public function withFragment(string $fragment)
     {
         $new_uri = clone $this;
         $new_uri->setFragment($fragment);
@@ -713,11 +712,10 @@ class Url
      *
      * @return Psr7Uri
      */
-    public function toPsr7()
+    public function toPsr7(): Psr7Uri
     {
         return new Psr7Uri(clone $this);
     }
-
 
     static public function fromPsr7(UriInterface $uri)
     {
@@ -731,8 +729,9 @@ class Url
      * @param string $basepath
      * @return string
      */
-    static public function buildAbsolutePath($relative_path, $basepath) {
-        if (strpos($relative_path, static::PATH_SEGMENT_SEPARATOR) === 0) {
+    static public function buildAbsolutePath(string $relative_path, string $basepath): string
+    {
+        if (str_starts_with($relative_path, static::PATH_SEGMENT_SEPARATOR)) {
             // this is already an absolute path!
             return static::normalizePath($relative_path);
         }
@@ -745,7 +744,7 @@ class Url
      * @param string $path
      * @return string
      */
-    static public function normalizePath($path)
+    static public function normalizePath(string $path): string
     {
         $path = preg_replace('|/\./|', '/', $path);   // entferne /./
         $path = preg_replace('|^\./|', '', $path);    // entferne ./ am Anfang
@@ -763,13 +762,13 @@ class Url
      * @param $path
      * @return string
      */
-    static public function filename($path)
+    static public function filename(string $path): string
     {
         if (substr($path, -1) == self::PATH_SEGMENT_SEPARATOR) return '';
         else return basename($path);
     }
 
-    static public function dirname($path)
+    static public function dirname(string $path): string
     {
         if (substr($path, -1) == self::PATH_SEGMENT_SEPARATOR) return substr($path, 0, -1);
         else {
@@ -783,7 +782,7 @@ class Url
      * @param string $url
      * @return Url
      */
-    static public function parse($url)
+    static public function parse(string $url)
     {
         return new static($url);
     }

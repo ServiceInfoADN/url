@@ -3,10 +3,6 @@ url
 
 PHP class for handling and manipulating URLs. It's a pragmatic one-class lib that is completely framework independent.
 
-[![Build Status](https://secure.travis-ci.org/wasinger/url.svg?branch=master)](http://travis-ci.org/wasinger/url)
-[![Latest Version](http://img.shields.io/packagist/v/wa72/url.svg)](https://packagist.org/packages/wa72/url)
-
-
 - Parse URL strings to objects
 - add and modify query parameters
 - set and modify any part of the url
@@ -19,10 +15,8 @@ PHP class for handling and manipulating URLs. It's a pragmatic one-class lib tha
 Installation
 ------------
 
-This package is listed on [Packagist](https://packagist.org/packages/wa72/url).
-
 ```
-composer require wa72/url
+composer require serviceinfoadn/url
 ```
 
 Features and Usage
@@ -31,7 +25,7 @@ Features and Usage
 ### Parse a URL to an object ###
 
 ```php
-use \Wa72\Url\Url;
+use \Adn\Url\Url;
 
 $url = new Url('http://my-server.com/index.php?p1=foo&p2=bar');
 // or alternatively use the static factory function `parse`:
@@ -152,8 +146,8 @@ To use this feature, you need to `composer require psr/http-message`.
 
 ```php
 <?php
-use Wa72\Url\Psr7Uri;
-use Wa72\Url\Url;
+use Adn\Url\Psr7Uri;
+use Adn\Url\Url;
 
 # Get a Psr7Uri from a Url object
 
@@ -164,7 +158,7 @@ $psr7uri = $url->toPsr7();
 
 # Get a Url object from UriInterface
 
-$url = Url::fromPsr7($psr7uri); // this works for every UriInterface object, not only Wa72\Url\Psr7Uri
+$url = Url::fromPsr7($psr7uri); // this works for every UriInterface object, not only Adn\Url\Psr7Uri
 // or alternatively:
 $url = $psr7uri->toUrl();
 
@@ -173,8 +167,3 @@ $url = $psr7uri->toUrl();
 $psr7uri = Psr7Uri::parse('https://www.foo.bar/test.php?a=b');
 ```
 
-### More documentation to come ###
-
-Meanwhile, have a look at the source code, there are lots of comments in it.
-
-(c) Christoph Singer 2018. Licensed under the MIT license.

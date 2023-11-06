@@ -1,9 +1,9 @@
 <?php
-namespace Wa72\Url\Tests;
+namespace Adn\Url\Tests;
 
 use Psr\Http\Message\UriInterface;
-use Wa72\Url\Psr7Uri;
-use Wa72\Url\Url;
+use Adn\Url\Psr7Uri;
+use Adn\Url\Url;
 use PHPUnit\Framework\TestCase;
 
 class Psr7UriTest extends TestCase

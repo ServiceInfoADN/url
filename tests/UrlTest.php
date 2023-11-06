@@ -1,13 +1,13 @@
 <?php
-namespace Wa72\Url\Tests;
+namespace Adn\Url\Tests;
 
-use Wa72\Url\Url;
+use Adn\Url\Url;
 use PHPUnit\Framework\TestCase;
 
 class UrlTest extends TestCase {
 
     /**
-     * @covers \Wa72\Url\Url::equalsQuery()
+     * @covers \Adn\Url\Url::equalsQuery()
      */
     public function testEqualsQuery()
     {
@@ -31,7 +31,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::equalsHost()
+     * @covers \Adn\Url\Url::equalsHost()
      */
     public function testEqualsHost()
     {
@@ -41,7 +41,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::filename()
+     * @covers \Adn\Url\Url::filename()
      */
     public function testFilename()
     {
@@ -49,7 +49,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::dirname()
+     * @covers \Adn\Url\Url::dirname()
      */
     public function testDirname()
     {
@@ -57,7 +57,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::parse()
+     * @covers \Adn\Url\Url::parse()
      */
     public function testParse()
     {
@@ -65,24 +65,24 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::__construct()
-     * @covers \Wa72\Url\Url::is_url()
+     * @covers \Adn\Url\Url::__construct()
+     * @covers \Adn\Url\Url::is_url()
      */
     public function testConstructor()
     {
         $url = new Url('http://example.com?param=value');
-        $this->assertInstanceOf('\Wa72\Url\Url', $url);
+        $this->assertInstanceOf('\Adn\Url\Url', $url);
         $this->assertTrue($url->is_url());
     }
 
     /**
-     * @covers \Wa72\Url\Url::__construct()
-     * @covers \Wa72\Url\Url::is_url()
+     * @covers \Adn\Url\Url::__construct()
+     * @covers \Adn\Url\Url::is_url()
      */
     public function testConstructorOnRelativeProtocol()
     {
         $url = new Url('//example.com?param=value');
-        $this->assertInstanceOf('\Wa72\Url\Url', $url);
+        $this->assertInstanceOf('\Adn\Url\Url', $url);
         $this->assertTrue($url->is_url());    
     }
 
@@ -98,8 +98,8 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::__construct()
-     * @covers \Wa72\Url\Url::is_url()
+     * @covers \Adn\Url\Url::__construct()
+     * @covers \Adn\Url\Url::is_url()
      * @dataProvider isUrlProvider
      */
     public function testIsUrl($link)
@@ -109,7 +109,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::is_local()
+     * @covers \Adn\Url\Url::is_local()
      */
     public function testIsLocal()
     {
@@ -118,7 +118,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::is_relative()
+     * @covers \Adn\Url\Url::is_relative()
      */
     public function testIsRelative()
     {
@@ -127,7 +127,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::is_host_relative()
+     * @covers \Adn\Url\Url::is_host_relative()
      */
     public function testIsHostRelative()
     {
@@ -136,7 +136,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::is_absolute()
+     * @covers \Adn\Url\Url::is_absolute()
      */
     public function testIsAbsolute()
     {
@@ -145,7 +145,7 @@ class UrlTest extends TestCase {
     }
  
     /**
-     * @covers \Wa72\Url\Url::is_protocol_relative()
+     * @covers \Adn\Url\Url::is_protocol_relative()
      */
     public function testIsProtocolRelative()
     {
@@ -154,8 +154,8 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::__toString()
-     * @covers \Wa72\Url\Url::write()
+     * @covers \Adn\Url\Url::__toString()
+     * @covers \Adn\Url\Url::write()
      */
     public function testToString()
     {
@@ -164,7 +164,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::setFragment()
+     * @covers \Adn\Url\Url::setFragment()
      */
     public function testSetFragment()
     {
@@ -174,7 +174,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::getFragment()
+     * @covers \Adn\Url\Url::getFragment()
      */
     public function testGetFragment()
     {
@@ -184,7 +184,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::setHost()
+     * @covers \Adn\Url\Url::setHost()
      */
     public function testSetHost()
     {
@@ -194,7 +194,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::getHost()
+     * @covers \Adn\Url\Url::getHost()
      */
     public function testGetHost()
     {
@@ -204,7 +204,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::setPass()
+     * @covers \Adn\Url\Url::setPass()
      */
     public function testSetPass()
     {
@@ -214,7 +214,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::getPass()
+     * @covers \Adn\Url\Url::getPass()
      */
     public function testGetPass()
     {
@@ -224,7 +224,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::setPath()
+     * @covers \Adn\Url\Url::setPath()
      */
     public function testSetPath()
     {
@@ -234,7 +234,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::getPath()
+     * @covers \Adn\Url\Url::getPath()
      */
     public function testGetPath()
     {
@@ -244,7 +244,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::setPort()
+     * @covers \Adn\Url\Url::setPort()
      */
     public function testSetPort()
     {
@@ -254,7 +254,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::getPort()
+     * @covers \Adn\Url\Url::getPort()
      */
     public function testGetPort()
     {
@@ -264,7 +264,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::setQuery()
+     * @covers \Adn\Url\Url::setQuery()
      */
     public function testSetQuery()
     {
@@ -274,7 +274,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::getQuery()
+     * @covers \Adn\Url\Url::getQuery()
      */
     public function testGetQuery()
     {
@@ -284,7 +284,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::setScheme()
+     * @covers \Adn\Url\Url::setScheme()
      */
     public function testSetScheme()
     {
@@ -294,7 +294,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::getScheme()
+     * @covers \Adn\Url\Url::getScheme()
      */
     public function testGetScheme()
     {
@@ -304,7 +304,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::setUser()
+     * @covers \Adn\Url\Url::setUser()
      */
     public function testSetUser()
     {
@@ -314,7 +314,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::getUser()
+     * @covers \Adn\Url\Url::getUser()
      */
     public function testGetUser()
     {
@@ -324,7 +324,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::hasQueryParameter()
+     * @covers \Adn\Url\Url::hasQueryParameter()
      */
     public function testHasQueryParameter()
     {
@@ -334,7 +334,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::getQueryParameter()
+     * @covers \Adn\Url\Url::getQueryParameter()
      */
     public function testGetQueryParameter()
     {
@@ -344,7 +344,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::setQueryParameter()
+     * @covers \Adn\Url\Url::setQueryParameter()
      */
     public function testSetQueryParameter()
     {
@@ -355,7 +355,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::setQueryFromArray()
+     * @covers \Adn\Url\Url::setQueryFromArray()
      */
     public function testSetQueryFromArray()
     {
@@ -370,7 +370,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::getQueryArray()
+     * @covers \Adn\Url\Url::getQueryArray()
      */
     public function testGetQueryArray()
     {
@@ -386,7 +386,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::equals()
+     * @covers \Adn\Url\Url::equals()
      */
     public function testEquals()
     {
@@ -396,7 +396,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::equalsPath()
+     * @covers \Adn\Url\Url::equalsPath()
      */
     public function testEqualsPath()
     {
@@ -406,7 +406,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::makeAbsolute()
+     * @covers \Adn\Url\Url::makeAbsolute()
      */
     public function testMakeAbsolute()
     {
@@ -423,7 +423,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::buildAbsolutePath()
+     * @covers \Adn\Url\Url::buildAbsolutePath()
      */
     public function testBuildAbsolutePath()
     {
@@ -461,7 +461,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::normalizePath()
+     * @covers \Adn\Url\Url::normalizePath()
      */
     public function testNormalizePath()
     {
@@ -473,7 +473,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::getFilename()
+     * @covers \Adn\Url\Url::getFilename()
      */
     public function testGetFilename()
     {
@@ -493,7 +493,7 @@ class UrlTest extends TestCase {
         $this->assertEquals('', $url->getFilename());
     }
     /**
-     * @covers \Wa72\Url\Url::getDirname()
+     * @covers \Adn\Url\Url::getDirname()
      */
     public function testGetDirname()
     {
@@ -513,7 +513,7 @@ class UrlTest extends TestCase {
         $this->assertEquals('foo', $url->getDirname());
     }
     /**
-     * @covers \Wa72\Url\Url::appendPathSegment()
+     * @covers \Adn\Url\Url::appendPathSegment()
      */
     public function testAppendPathSegment()
     {
@@ -535,7 +535,7 @@ class UrlTest extends TestCase {
 
     }
     /**
-     * @covers \Wa72\Url\Url::write()
+     * @covers \Adn\Url\Url::write()
      */
     public function testWrite()
     {
@@ -580,7 +580,7 @@ class UrlTest extends TestCase {
     }
 
     /**
-     * @covers \Wa72\Url\Url::isInPath()
+     * @covers \Adn\Url\Url::isInPath()
      */
     public function testIsInPath()
     {
