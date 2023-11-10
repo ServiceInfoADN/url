@@ -1,6 +1,6 @@
 {
     "name":"serviceinfoadn/url",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description":"Class for handling and manipulating URLs",
     "type":"library",
     "autoload":{
