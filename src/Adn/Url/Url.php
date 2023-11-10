@@ -11,18 +11,18 @@ class Url
     const WRITE_FLAG_OMIT_SCHEME = 1;
     const WRITE_FLAG_OMIT_HOST = 2;
 
-    protected string $original_url;
+    protected $original_url;
 
-    protected string $scheme;
-    protected string $user;
-    protected string $pass;
-    protected string $host;
-    protected ?int $port;
-    protected string $path;
-    protected string $query;
+    protected $scheme;
+    protected $user;
+    protected $pass;
+    protected $host;
+    protected $port;
+    protected $path;
+    protected $query;
     protected $fragment;
 
-    protected array $query_array = array();
+    protected $query_array = array();
 
     public function __construct($url)
     {
