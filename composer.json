@@ -1,11 +1,11 @@
 {
     "name":"serviceinfoadn/url",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description":"Class for handling and manipulating URLs",
     "type":"library",
     "autoload":{
         "psr-4":{
-            "Adn\\Url\\": "src/Wa72/Url"
+            "Adn\\Url\\": "src/Adn/Url"
         }
     },
     "autoload-dev": {
